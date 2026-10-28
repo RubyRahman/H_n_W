@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d9b5ad"><title>Hady &amp; Waseem | Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#D8A69A;--plum-dark:#B77D72;--serif:"Cormorant Garamond",Georgia,serif;--sans:Montserrat,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:20px 14px;background:radial-gradient(ellipse at 50% 0%,#fffaf7 0,#f5e6e1 55%,#ead4ce 100%);font-family:var(--sans);color:var(--plum);overflow-x:hidden}
+.scene{width:min(100%,420px);text-align:center;animation:fadeIn 1s ease both}.eyebrow{font:italic 500 20px var(--serif);margin:0 0 16px;color:var(--plum)}
+.eyebrow:before,.eyebrow:after{content:"";display:inline-block;width:28px;height:1px;background:var(--plum);vertical-align:middle;margin:0 12px;opacity:.55}
+.stage{position:relative;width:min(100%,calc((100svh - 190px)*1240/1748));min-width:250px;margin:auto;aspect-ratio:1240/1748;cursor:pointer;perspective:1600px;animation:float 4.5s ease-in-out infinite;outline:none}.stage.open{animation:none}
+.envelope,.piece{position:absolute;inset:0}.envelope{perspective:1600px}.piece{position:absolute;inset:0;overflow:hidden}
+.piece:before{content:"";position:absolute;inset:0;background-image:linear-gradient(135deg,rgba(121,80,73,.88),rgba(76,48,45,.94)),url("Blush Pink Wedding Invitation.png")" alt="Wedding invitation for Hady and Waseem, Sunday 6 December 2026 at 11:00 AM, AV Palace, Kappad, Kozhikode"></div>
+
+<div class="piece env-left"></div><div class="piece env-right"></div><div class="piece env-bottom"></div><div class="piece flap"></div><div class="seal"><b>H</b><span>&amp;</span><b>W</b></div>
+</div></div>
+<div class="prompt">Tap to open !</div><p class="hint" id="hint">Sealed with love.</p><div><button class="reset" id="reset" type="button">Close envelope ↺</button></div><div class="footer">HADY &amp; WASEEM</div></main>
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+
+<script>
+const stage=document.getElementById('stage'),reset=document.getElementById('reset'),hint=document.getElementById('hint'),petals=document.getElementById('petals');
+const petalColors=['#f2d5ce','#f8e5df','#e6b9af','#d8aaa0','#c9958b'];
+function toggleOpen(){const isOpen=stage.classList.toggle('open');stage.setAttribute('aria-label',isOpen?'Wedding invitation opened':'Open the wedding invitation');hint.textContent=isOpen?'Happy to celebrate this special day with you.':'Sealed with love.';reset.style.display=isOpen?'inline-block':'none';if(isOpen)setTimeout(showerPetals,2200);}
+function showerPetals(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;for(let i=0;i<28;i++){const p=document.createElement('span');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.background=petalColors[i%petalColors.length];p.style.setProperty('--drift',(Math.random()*120-60)+'px');p.style.setProperty('--spin',(Math.random()*540-270)+'deg');p.style.animationDuration=4+Math.random()*3+'s';p.style.animationDelay=Math.random()*1.5+'s';petals.appendChild(p);p.addEventListener('animationend',()=>p.remove());}}
+stage.addEventListener('click',toggleOpen);stage.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleOpen();}});reset.addEventListener('click',e=>{e.stopPropagation();if(stage.classList.contains('open'))toggleOpen();});
+</script>
+
+</body>
+</html>
