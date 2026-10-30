@@ -1,30 +1,459 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#d9b5ad"><title>Hady &amp; Waseem | Wedding Invitation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@500&display=swap" rel="stylesheet">
-<style>
-:root{--plum:#D8A69A;--plum-dark:#B77D72;--serif:"Cormorant Garamond",Georgia,serif;--sans:Montserrat,Arial,sans-serif}
-*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:20px 14px;background:radial-gradient(ellipse at 50% 0%,#fffaf7 0,#f5e6e1 55%,#ead4ce 100%);font-family:var(--sans);color:var(--plum);overflow-x:hidden}
-.scene{width:min(100%,420px);text-align:center;animation:fadeIn 1s ease both}.eyebrow{font:italic 500 20px var(--serif);margin:0 0 16px;color:var(--plum)}
-.eyebrow:before,.eyebrow:after{content:"";display:inline-block;width:28px;height:1px;background:var(--plum);vertical-align:middle;margin:0 12px;opacity:.55}
-.stage{position:relative;width:min(100%,calc((100svh - 190px)*1240/1748));min-width:250px;margin:auto;aspect-ratio:1240/1748;cursor:pointer;perspective:1600px;animation:float 4.5s ease-in-out infinite;outline:none}.stage.open{animation:none}
-.envelope,.piece{position:absolute;inset:0}.envelope{perspective:1600px}.piece{position:absolute;inset:0;overflow:hidden}
-.piece:before{content:"";position:absolute;inset:0;background-image:linear-gradient(135deg,rgba(121,80,73,.88),rgba(76,48,45,.94)),url("Blush Pink Wedding Invitation.png")" alt="Wedding invitation for Hady and Waseem, Sunday 6 December 2026 at 11:00 AM, AV Palace, Kappad, Kozhikode"></div>
 
-<div class="piece env-left"></div><div class="piece env-right"></div><div class="piece env-bottom"></div><div class="piece flap"></div><div class="seal"><b>H</b><span>&amp;</span><b>W</b></div>
-</div></div>
-<div class="prompt">Tap to open !</div><p class="hint" id="hint">Sealed with love.</p><div><button class="reset" id="reset" type="button">Close envelope ↺</button></div><div class="footer">HADY &amp; WASEEM</div></main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d9b5ad">
+<title>Hady &amp; Waseem | Wedding Invitation</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --plum: #D8A69A;
+  --plum-dark: #B77D72;
+  --envelope: #D9B5AD;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Montserrat", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 14px;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    #fffaf7 0%,
+    #f5e6e1 55%,
+    #ead4ce 100%
+  );
+  font-family: var(--sans);
+  color: var(--plum-dark);
+  overflow-x: hidden;
+}
+
+.scene {
+  width: min(100%, 420px);
+  text-align: center;
+  animation: fadeIn 1s ease both;
+}
+
+.eyebrow {
+  font: italic 500 20px var(--serif);
+  margin: 0 0 20px;
+  color: var(--plum-dark);
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--plum-dark);
+  vertical-align: middle;
+  margin: 0 12px;
+  opacity: .55;
+}
+
+/* Invitation and envelope stage */
+
+.stage {
+  position: relative;
+  width: min(100%, calc((100svh - 190px) * 1240 / 1748));
+  min-width: 250px;
+  margin: auto;
+  aspect-ratio: 1240 / 1748;
+  perspective: 1600px;
+  cursor: pointer;
+  outline: none;
+  isolation: isolate;
+}
+
+.stage:focus-visible {
+  outline: 2px solid var(--plum-dark);
+  outline-offset: 6px;
+}
+
+/* Actual invitation card */
+
+.invitation-card {
+  position: absolute;
+  width: 84%;
+  height: 88%;
+  left: 8%;
+  top: 5%;
+  object-fit: contain;
+  background: #fffaf7;
+  box-shadow: 0 8px 25px rgba(83, 48, 42, .18);
+  border-radius: 2px;
+  z-index: 1;
+  transform: translateY(27%) scale(.94);
+  transition: transform 1.2s cubic-bezier(.2,.75,.25,1);
+}
+
+/* Envelope base */
+
+.envelope {
+  position: absolute;
+  inset: 34% 0 0;
+  z-index: 2;
+  overflow: visible;
+  filter: drop-shadow(0 12px 15px rgba(90, 54, 47, .17));
+}
+
+.envelope-base {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      rgba(255,255,255,.035) 0px,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(145deg, #e8c9c0, #d6aaa0 55%, #c99186);
+}
+
+/* Side folds */
+
+.env-left {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e8c7be, #d4a69c);
+  clip-path: polygon(0 0, 52% 55%, 0 100%);
+  z-index: 2;
+}
+
+.env-right {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, #e8c7be, #cc988e);
+  clip-path: polygon(100% 0, 48% 55%, 100% 100%);
+  z-index: 2;
+}
+
+/* Bottom fold */
+
+.env-bottom {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #e6c1b7, #c99186);
+  clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+  z-index: 3;
+}
+
+/* Opening top flap */
+
+.flap {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #e9c9c0, #c99186);
+  clip-path: polygon(0 0, 100% 0, 50% 57%);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 1s ease, opacity .5s ease;
+  z-index: 5;
+  backface-visibility: visible;
+}
+
+/* Wax seal */
+
+.seal {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f2d2c8, #b77d72 75%);
+  box-shadow:
+    0 3px 8px rgba(80, 43, 38, .25),
+    inset 0 2px 5px rgba(255,255,255,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #fff6f1;
+  font: 600 17px var(--serif);
+  z-index: 6;
+  transition: opacity .4s ease, transform .5s ease;
+}
+
+.seal span {
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Open state */
+
+.stage.open .invitation-card {
+  transform: translateY(-5%) scale(1);
+  transition-delay: .25s;
+}
+
+.stage.open .flap {
+  transform: rotateX(180deg);
+  opacity: .15;
+  pointer-events: none;
+}
+
+.stage.open .seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.5);
+}
+
+.stage.open .env-left,
+.stage.open .env-right,
+.stage.open .env-bottom {
+  opacity: .94;
+}
+
+/* Instructions */
+
+.prompt {
+  margin-top: 20px;
+  font: 500 13px var(--sans);
+  letter-spacing: 2px;
+  color: var(--plum-dark);
+  text-transform: uppercase;
+}
+
+.hint {
+  margin: 9px 0 12px;
+  font: italic 20px var(--serif);
+  color: var(--plum-dark);
+}
+
+.reset {
+  display: none;
+  padding: 10px 19px;
+  border: 1px solid var(--plum-dark);
+  border-radius: 30px;
+  background: transparent;
+  color: var(--plum-dark);
+  font: 11px var(--sans);
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.reset:hover {
+  background: var(--plum-dark);
+  color: white;
+}
+
+.footer {
+  margin-top: 22px;
+  font: 10px var(--sans);
+  letter-spacing: 4px;
+  color: var(--plum-dark);
+}
+
+/* Falling petals */
+
+.petals {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.petal {
+  position: absolute;
+  top: -30px;
+  width: 11px;
+  height: 17px;
+  border-radius: 80% 10% 80% 10%;
+  opacity: .8;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translate3d(var(--drift), 110vh, 0)
+      rotate(var(--spin));
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 18px 12px;
+  }
+
+  .eyebrow {
+    font-size: 18px;
+  }
+
+  .seal {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="scene">
+
+  <p class="eyebrow">Together with their families</p>
+
+  <div
+    class="stage"
+    id="stage"
+    role="button"
+    tabindex="0"
+    aria-label="Open the wedding invitation"
+  >
+
+    <!-- Invitation card image -->
+    <img
+      class="invitation-card"
+      src="Blush%20Pink%20Wedding%20Invitation.png"
+      alt="Wedding invitation for Hady and Waseem"
+    >
+
+    <!-- Envelope -->
+    <div class="envelope">
+      <div class="envelope-base"></div>
+      <div class="piece env-left"></div>
+      <div class="piece env-right"></div>
+      <div class="piece env-bottom"></div>
+      <div class="piece flap"></div>
+
+      <div class="seal">
+        <b>H</b>
+        <span>&amp;</span>
+        <b>W</b>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="prompt" id="prompt">Tap to open</div>
+
+  <p class="hint" id="hint">Sealed with love.</p>
+
+  <button class="reset" id="reset" type="button">
+    Close envelope ↺
+  </button>
+
+  <div class="footer">HADY &amp; WASEEM</div>
+
+</main>
+
 <div class="petals" id="petals" aria-hidden="true"></div>
 
-
 <script>
-const stage=document.getElementById('stage'),reset=document.getElementById('reset'),hint=document.getElementById('hint'),petals=document.getElementById('petals');
-const petalColors=['#f2d5ce','#f8e5df','#e6b9af','#d8aaa0','#c9958b'];
-function toggleOpen(){const isOpen=stage.classList.toggle('open');stage.setAttribute('aria-label',isOpen?'Wedding invitation opened':'Open the wedding invitation');hint.textContent=isOpen?'Happy to celebrate this special day with you.':'Sealed with love.';reset.style.display=isOpen?'inline-block':'none';if(isOpen)setTimeout(showerPetals,2200);}
-function showerPetals(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;for(let i=0;i<28;i++){const p=document.createElement('span');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.background=petalColors[i%petalColors.length];p.style.setProperty('--drift',(Math.random()*120-60)+'px');p.style.setProperty('--spin',(Math.random()*540-270)+'deg');p.style.animationDuration=4+Math.random()*3+'s';p.style.animationDelay=Math.random()*1.5+'s';petals.appendChild(p);p.addEventListener('animationend',()=>p.remove());}}
-stage.addEventListener('click',toggleOpen);stage.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleOpen();}});reset.addEventListener('click',e=>{e.stopPropagation();if(stage.classList.contains('open'))toggleOpen();});
+const stage = document.getElementById("stage");
+const reset = document.getElementById("reset");
+const hint = document.getElementById("hint");
+const prompt = document.getElementById("prompt");
+const petals = document.getElementById("petals");
+
+const petalColors = [
+  "#f2d5ce",
+  "#f8e5df",
+  "#e6b9af",
+  "#d8aaa0",
+  "#c9958b"
+];
+
+function showerPetals() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  for (let i = 0; i < 28; i++) {
+    const petal = document.createElement("span");
+
+    petal.className = "petal";
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.background = petalColors[i % petalColors.length];
+
+    petal.style.setProperty(
+      "--drift",
+      (Math.random() * 120 - 60) + "px"
+    );
+
+    petal.style.setProperty(
+      "--spin",
+      (Math.random() * 540 - 270) + "deg"
+    );
+
+    petal.style.animationDuration = (4 + Math.random() * 3) + "s";
+    petal.style.animationDelay = Math.random() * 1.5 + "s";
+
+    petals.appendChild(petal);
+
+    petal.addEventListener("animationend", () => petal.remove());
+  }
+}
+
+function toggleOpen() {
+  const isOpen = stage.classList.toggle("open");
+
+  stage.setAttribute(
+    "aria-label",
+    isOpen ? "Wedding invitation opened" : "Open the wedding invitation"
+  );
+
+  hint.textContent = isOpen
+    ? "Happy to celebrate this special day with you."
+    : "Sealed with love.";
+
+  prompt.textContent = isOpen ? "Our special day" : "Tap to open";
+
+  reset.style.display = isOpen ? "inline-block" : "none";
+
+  if (isOpen) {
+    setTimeout(showerPetals, 900);
+  }
+}
+
+stage.addEventListener("click", toggleOpen);
+
+stage.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    toggleOpen();
+  }
+});
+
+reset.addEventListener("click", event => {
+  event.stopPropagation();
+
+  if (stage.classList.contains("open")) {
+    toggleOpen();
+  }
+});
 </script>
 
 </body>
